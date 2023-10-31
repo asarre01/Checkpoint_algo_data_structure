@@ -1,0 +1,48 @@
+ALGORITHM sum_distincts_elements
+
+VAR
+    // Déclarer deux tableaux d'entiers
+    tab1 : INTEGER := {3, 1, 7, 9};
+    tab2 : INTEGER := {2, 4, 1, 9, 3};
+    //Initialiser les variables de boucle i et j
+    i : INTEGER := 0; 
+    j : INTEGER := 0; 
+    //Variable pour suivre si un élément n'est pas trouvé
+    noFound : BOOLEAN := true; 
+    // Variable pour stocker la somme des éléments distincts
+    sum : INTEGER := 0; 
+BEGIN
+
+    // Compare les éléments de tab1 aux éléments de tab2
+    FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+        FOR j FROM 0 TO tab2.length-1 STEP 1  DO
+            IF (tab1[i] == tab2[j]) THEN
+                noFound := false; // L'élément est trouvé dans tab2
+                break;
+            ELSE
+                noFound := true; // L'élément n'est pas trouvé dans tab2
+            END_IF
+        END_FOR
+        IF (noFound) THEN
+            sum := sum + tab1[i]; // Si l'élément n'est pas trouvé dans tab2, l'ajouter à la somme
+        END_IF
+    END_FOR
+
+    // Compare les éléments de tab2 aux éléments de tab1
+    FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+        FOR j FROM 0 TO tab1.length-1 STEP 1  DO
+            IF (tab2[i] == tab1[j]) THEN
+                noFound := false; // L'élément est trouvé dans tab1
+                break;
+            ELSE
+                noFound := true; // L'élément n'est pas trouvé dans tab1
+            END_IF
+        END_FOR
+        IF (noFound) THEN
+            sum := sum + tab1[i]; // Si l'élément n'est pas trouvé dans tab1, l'ajouter à la somme
+        END_IF
+    END_FOR
+    
+    // Afficher la somme des éléments distincts
+    write(sum) 
+END
