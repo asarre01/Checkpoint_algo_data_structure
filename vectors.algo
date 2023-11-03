@@ -1,0 +1,106 @@
+// L'algorithme avec des procédures
+// Cette procédure permet de calculer le produit scalaire d'un couple de vecteurs
+PROCEDURE dot_product(V,ps) : FLOAT
+VAR
+
+BEGIN
+    ps := (V[0][0] * V[1][0]) + (V[0][1] * V[1][1]);
+END
+
+// Cette procédure permet d'initialiser un couple de vecteurs
+PROCEDURE vertor(V) : ARRAY_OF FLOAT
+VAR
+    i: INTEGER := 0;
+    j: INTEGER := 0;
+BEGIN
+    WRITE("Saisir les coordonnées du couple de vecteurs V1 et V2:");
+    FOR i FROM 0 TO V.length - 1 STEP 1  DO
+        WRITE("Pour V" + i + ":");
+        WRITE("Saisir X:");
+        FOR j FROM 0 TO V[i].length - 1 STEP 1  DO
+            IF (j == 1) THEN
+            WRITE("Saisir Y:");    
+            END_IF
+            READ(V[i][j]);
+        END_FOR
+    END_FOR
+END
+
+// Nous avons la partie principale de l'algo
+ALGORITHM vertors
+VAR
+    couple_vectors : ARRAY_OF FLOAT [2][2];
+    ps : FLOAT := 0;
+    n : INTEGER := 0;
+    i : INTEGER := 0;
+BEGIN
+    WRITE("Saisir le nombre de couples de vecteurs");
+    READ(n);
+    FOR i FROM 1 TO n STEP 1  DO
+        WRITE("Couple " + i ":");
+        vertor(couple_vectors);
+        ps := dot_product(couple_vectors,ps);
+        // A partir du produit scalaire, on détermine si les vecteurs appartenant au couple sont orthogonaux 
+        IF (ps == 0) THEN
+            WRITE("Les vecteurs sont orthogonaux.");
+        ELSE 
+            WRITE("Les vecteurs ne sont pas orthogonaux.");
+        END_IF
+        ps:= 0;
+    END_FOR
+END
+
+// L'algorithme avec des fonctions
+// Cette fonction permet de calculer le produit scalaire d'un couple de vecteurs
+FUNCTION dot_product(V) : FLOAT
+VAR
+    ps : FLOAT := 0; 
+BEGIN
+    ps := (V[0][0] * V[1][0]) + (V[0][1] * V[1][1]);
+
+    RETURN ps;
+END
+
+// Cette fonction permet d'initialiser un couple de vecteurs
+FUNCTION vertor(V) : ARRAY_OF FLOAT
+VAR
+    i: INTEGER := 0;
+    j: INTEGER := 0;
+BEGIN
+    WRITE("Saisir les coordonnées du couple de vecteurs V1 et V2:");
+    FOR i FROM 0 TO V.length - 1 STEP 1  DO
+        WRITE("Pour V" + i + ":");
+        WRITE("Saisir X:");
+        FOR j FROM 0 TO V[i].length - 1 STEP 1  DO
+            IF (j == 1) THEN
+            WRITE("Saisir Y:");    
+            END_IF
+            READ(V[i][j]);
+        END_FOR
+    END_FOR
+    RETURN V;
+END
+
+// Nous avons la partie principale de l'algo
+ALGORITHM vertors
+VAR
+    couple_vectors : ARRAY_OF FLOAT [2][2];
+    ps : FLOAT := 0;
+    n : INTEGER := 0;
+    i : INTEGER := 0;
+BEGIN
+    WRITE("Saisir le nombre de couples de vecteurs");
+    READ(n);
+    FOR i FROM 1 TO n STEP 1  DO
+        WRITE("Couple " + i ":");
+        couple_vectors := vertor(couple_vectors);
+        ps := dot_product(couple_vectors,ps);
+        // A partir du produit scalaire, on détermine si les vecteurs appartenant au couple sont orthogonaux 
+        IF (ps == 0) THEN
+            WRITE("Les vecteurs sont orthogonaux.");
+        ELSE 
+            WRITE("Les vecteurs ne sont pas orthogonaux.");
+        END_IF
+        ps:= 0;
+    END_FOR
+END
